@@ -1,9 +1,7 @@
 class CustomersController < ApplicationController
   def new
-    @user = User.new
-  end
-  def show
+    @Customer = Customer.new
+    @customer = Customer.all
   end
 end
-
 
