@@ -9,13 +9,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    
-    <% if customer_signed_in? %>
-     <p><%= link_to "ログアウト", destroy_customer_session_path, method: :delete %></p>
-    <% end %>
-    <%= yield %>
+     <body>
+  <%= yield %>
   </body>
 </html>
