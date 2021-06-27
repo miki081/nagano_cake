@@ -14,7 +14,7 @@
       </button>
    <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-          <li><%= link_to "マイページ", customer_path(current_customer) %></li>
+          <li><a class="fas fa-link nav-link text-light"><%= link_to "マイページ", customer_path(current_customer) %></a></li>
           <li><a class="fas fa-link nav-link text-light" href="/items/">商品一覧</a></li>
           <li><a class="fas fa-user-plus nav-link text-light" href="customers/sign_up/">新規登録</a></li>
          <li><a class="fas fa-sign-in-alt nav-link text-light" data-method="delete" href="sign_out">ログアウト</a></li>
@@ -25,33 +25,44 @@
 </header>
 
 
+<%= form_with model: @address, url: addresses_path do |f| %>
+　<div class="field">
+    <%= f.label :postal_code, "郵便番号" "(ハイフンなし)" %><br/>
+    <%= f.text_field :postal_code, autofocus: true, autocomplete: "postal_code" %>
+  </div>
 
+  <div class="field">
+    <%= f.label :address, "住所" %><br/>
+    <%= f.text_field :address, autofocus: true, autocomplete: "address" %>
+  </div>
+  <div class="field">
+　  <%= f.label :name, "宛名" %>
+　  <%= f.text_field :name, autofocus: true %>
+　</div>
+
+  <div class="actions">
+    <%= f.submit "新規登録" %>
+
+  <% end %>
 <div class="container py-4" id="contact">
-<h2>マイページ</h2>
-<p>登録情報</p><p><%= link_to "編集", edit_customer_path %></p>
-  <aside class="col-md-6">
+  <h3>配送先登録/一覧</h3>
+  <% @addresses.each do |address| %>
+ <aside class="col-md-6">
     <div class="panel panel-default">
   <table class="table table-bordered">
-      <tr>
-        <td>氏名</td>
-        <td><%= @customer.first_name %><%= @customer.last_name %></td></tr>
-      <tr><td>カナ</td>
-        <td><%= @customer.first_name_kana %><%= @customer.last_name_kana %></td></tr>
-      <tr><td>郵便番号</td>
-      　<td><%= @customer.postal_code %></td></tr>
+  <tr><td>郵便番号</td>
+      　<td><%= address.postal_code %></td>
       <tr><td>住所</td>
-      　<td><%= @customer.address %></td></tr>
-      <tr><td>電話番号</td>
-      　<td><%= @customer.telephone_number %></td></tr>
-      <tr>
-        <td>メールアドレス</td>
-        <td><%= @customer.email %></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-      </div>
-  </div>
-  </aside>
+      　<td><%= address.address %></td></tr>
+     　<tr><td>氏名</td>
+        <td><%= address.name %></td></tr>
+      　<td><%= link_to "編集する", edit_address_path(address) %></td>
+  </tr>
 
-  <p>配送先<%= link_to "一覧見る", addresses_path %></p>
+
+<% end %>
+
+
+
+
+
