@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :email, :postal_code, :address, :telephone_number])
+    devise_parameter_sanitizer.permit(:sign_in,keys:[:email])
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :email, :postal_code, :address, :telephone_number])
   end
 
@@ -23,9 +24,4 @@ class ApplicationController < ActionController::Base
   def after_update_path_for(resource)
     customer_path(current_customer)
   end
-  
-  
-
-  private
-
 end
